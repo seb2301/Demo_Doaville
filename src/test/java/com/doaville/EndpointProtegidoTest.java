@@ -24,15 +24,7 @@ class EndpointProtegidoTest {
         mockMvc.perform(get("/api/itens-doacao")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
-        // Dependendo da sua config pode ser isForbidden(), mas padrão é 401 sem token
     }
 
-    // Repita para outros endpoints protegidos, se houver:
-    // @Test
-    // @DisplayName("GET /api/outro-endpoint-protegido deve retornar 401 quando não autenticado")
-    // void deveRetornar401OutroEndpointProtegido() throws Exception {
-    //     mockMvc.perform(get("/api/outro-endpoint-protegido")
-    //             .contentType(MediaType.APPLICATION_JSON))
-    //             .andExpect(status().isUnauthorized());
-    // }
+
 }

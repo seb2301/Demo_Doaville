@@ -26,7 +26,6 @@ class JwtServiceTest {
     @BeforeEach
     void setUp() {
         jwtService = new JwtService();
-        // Pega a mesma chave do serviço para garantir a assinatura correta
         secretKey = Keys.hmacShaKeyFor(
                 "f56c9732c0f744e8abf8f67c28c731f502c44b80a8ee4998932f4c6f0e2bda63babeaa0e7a2e68d1b6b183925dc2b8e5"
                         .getBytes(StandardCharsets.UTF_8)
@@ -43,7 +42,6 @@ class JwtServiceTest {
     }
 
     private String generateExpiredToken(String username) {
-        // Expirou há 1 segundo
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis() - 120_000))

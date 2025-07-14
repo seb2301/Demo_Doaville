@@ -56,7 +56,6 @@ class ItemDoacaoControllerTest {
         validDTO = new ItemDoacaoDTO(1L, "Cesta Básica", "Alimentos não perecíveis", true);
     }
 
-    // LISTAR TODOS - lista vazia
     @Test
     @WithMockUser
     void listarTodosVazio() throws Exception {
@@ -67,7 +66,7 @@ class ItemDoacaoControllerTest {
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
-    // LISTAR TODOS - lista normal
+
     @Test
     @WithMockUser
     void listarTodosComItens() throws Exception {
@@ -79,7 +78,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(jsonPath("$[0].nome", is("Cesta Básica")));
     }
 
-    // BUSCAR POR ID EXISTENTE
     @Test
     @WithMockUser
     void buscarPorIdExistente() throws Exception {
@@ -90,7 +88,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(jsonPath("$.id", is(1)));
     }
 
-    // BUSCAR POR ID INEXISTENTE (BUSINESS EXCEPTION)
     @Test
     @WithMockUser
     void buscarPorIdInexistente() throws Exception {
@@ -100,7 +97,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // CRIAR ITEM COM SUCESSO
     @Test
     @WithMockUser(roles = "ADMIN")
     void criarItemComSucesso() throws Exception {
@@ -115,7 +111,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(jsonPath("$.id", is(1)));
     }
 
-    // CRIAR ITEM COM CAMPOS INVÁLIDOS (VALIDATION)
     @Test
     @WithMockUser(roles = "ADMIN")
     void criarItemCamposInvalidos() throws Exception {
@@ -129,7 +124,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // CRIAR ITEM - SERVICE LANÇA EXCEÇÃO DE NEGÓCIO
     @Test
     @WithMockUser(roles = "ADMIN")
     void criarItemBusinessException() throws Exception {
@@ -143,7 +137,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // CRIAR ITEM - SERVICE LANÇA ERRO INTERNO
     @Test
     @WithMockUser(roles = "ADMIN")
     void erroInternoAoCriarItem() throws Exception {
@@ -157,7 +150,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isInternalServerError());
     }
 
-    // EDITAR ITEM COM SUCESSO
     @Test
     @WithMockUser(roles = "ADMIN")
     void editarItemComSucesso() throws Exception {
@@ -171,7 +163,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(jsonPath("$.id", is(1)));
     }
 
-    // EDITAR ITEM COM CAMPOS INVÁLIDOS
     @Test
     @WithMockUser(roles = "ADMIN")
     void editarItemCamposInvalidos() throws Exception {
@@ -184,7 +175,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // EDITAR ITEM INEXISTENTE (BUSINESS EXCEPTION)
     @Test
     @WithMockUser(roles = "ADMIN")
     void editarItemInexistente() throws Exception {
@@ -197,7 +187,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // EXCLUIR ITEM COM SUCESSO
     @Test
     @WithMockUser(roles = "ADMIN")
     void excluirItemComSucesso() throws Exception {
@@ -208,7 +197,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    // EXCLUIR ITEM INEXISTENTE (BUSINESS EXCEPTION)
     @Test
     @WithMockUser(roles = "ADMIN")
     void excluirItemInexistente() throws Exception {
@@ -219,7 +207,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // EXCLUIR ITEM - ERRO INTERNO
     @Test
     @WithMockUser(roles = "ADMIN")
     void erroInternoAoExcluirItem() throws Exception {
@@ -230,7 +217,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isInternalServerError());
     }
 
-    // BUSCAR POR ID - ERRO INTERNO
     @Test
     @WithMockUser
     void erroInternoAoBuscarPorId() throws Exception {
@@ -240,7 +226,6 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isInternalServerError());
     }
 
-    // EDITAR ITEM - ERRO INTERNO
     @Test
     @WithMockUser(roles = "ADMIN")
     void erroInternoAoEditarItem() throws Exception {
@@ -253,14 +238,12 @@ class ItemDoacaoControllerTest {
                 .andExpect(status().isInternalServerError());
     }
 
-    // TESTE DE AUTORIZAÇÃO - SEM USUÁRIO
     @Test
     void acessoNegadoSemUsuario() throws Exception {
         mockMvc.perform(get("/api/itens-doacao"))
                 .andExpect(status().isUnauthorized());
     }
 
-    // Teste de Content-Type errado
     @Test
     @WithMockUser(roles = "ADMIN")
     void criarItemContentTypeErrado() throws Exception {

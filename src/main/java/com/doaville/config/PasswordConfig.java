@@ -1,4 +1,4 @@
-package com.doaville.config; // ajuste o pacote se preferir
+package com.doaville.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

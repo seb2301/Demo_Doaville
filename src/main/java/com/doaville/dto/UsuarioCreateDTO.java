@@ -12,5 +12,5 @@ public class UsuarioCreateDTO {
     @NotBlank
     private String senha;
     @NotBlank
-    private String perfil; // ADMIN ou USER
+    private String perfil;
 }

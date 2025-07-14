@@ -14,7 +14,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if ("admin".equals(username)) {
             return User.builder()
                     .username("admin")
-                    .password("$2a$10$KH2P.SrR8h2wz5VjABsHTOf/VwzPTdeMnAz0p60s6qlTwEuCOcbNe") // senha: admin
+                    .password("$2a$10$KH2P.SrR8h2wz5VjABsHTOf/VwzPTdeMnAz0p60s6qlTwEuCOcbNe")
                     .roles("ADMIN")
                     .build();
         } else {

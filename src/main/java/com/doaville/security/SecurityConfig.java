@@ -15,13 +15,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")) // Exemplo para liberar o H2 em dev
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/itens-doacao/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .httpBasic(httpBasic -> {}) // ativa basic authentication (não deprecated)
-                .formLogin(formLogin -> formLogin.disable()); // desativa form login (não deprecated)
+                .httpBasic(httpBasic -> {})
+                .formLogin(formLogin -> formLogin.disable());
 
         return http.build();
     }

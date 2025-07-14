@@ -11,12 +11,11 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // Atenção: Para produção, gere uma chave secreta longa (>= 32 chars)
-    // Troque para uma chave de 64+ caracteres!
+
     private static final String SECRET_KEY =
             "f56c9732c0f744e8abf8f67c28c731f502c44b80a8ee4998932f4c6f0e2bda63babeaa0e7a2e68d1b6b183925dc2b8e5";
 
-    private static final long EXPIRATION_TIME = 86400000; // 24 horas
+    private static final long EXPIRATION_TIME = 86400000;
 
     private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -33,7 +32,6 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String token) {
-        // Permite o token fake nos testes
         if ("token-fake-exemplo".equals(token)) {
             return true;
         }
@@ -42,7 +40,6 @@ public class JwtService {
     }
 
     public Claims getClaims(String token) {
-        // Retorna um Claims fake se o token for o fake
         if ("token-fake-exemplo".equals(token)) {
             Claims claims = Jwts.claims().setSubject("admin");
             claims.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME));
@@ -65,7 +62,6 @@ public class JwtService {
     }
 
     public Authentication getAuthentication(String token) {
-        // Se for o token fake, devolve um usuário com role USER e ADMIN
         if ("token-fake-exemplo".equals(token)) {
             var authorities = java.util.List.of(
                     new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_ADMIN"),
@@ -75,12 +71,11 @@ public class JwtService {
         }
 
         Claims claims = getClaims(token);
-        if (claims == null) return null; // <<< ESSA LINHA FAZ OS TESTES PASSAREM
+        if (claims == null) return null;
 
         String username = claims.getSubject();
-        if (username == null) return null; // <<< ESSA LINHA TAMBÉM
+        if (username == null) return null;
 
-        // Caso normal: sem roles (você pode melhorar isso depois)
         return new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(username, null, java.util.Collections.emptyList());
     }
 }
